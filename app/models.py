@@ -20,8 +20,7 @@ class CustemUser(AbstractUser):
     userGender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     userStatus = models.CharField(max_length=10, choices=USER_STATUS)
     groups = models.ManyToManyField(Group, verbose_name=('groups'), blank=True, related_name='custom_user_groups')
-    user_permissions = models.ManyToManyField(Permission, verbose_name=('user permissions'), blank=True,
-                                              related_name='custom_user_permissions')
+    user_permissions = models.ManyToManyField(Permission, verbose_name=('user permissions'), blank=True, related_name='custom_user_permissions')
 
     def __str__(self):
         return self.userStatus
@@ -58,7 +57,7 @@ class Course(models.Model):
     duration = models.IntegerField(null=True, blank=True)
     maxStudentsCount = models.IntegerField(null=True, blank=True)
     jamgarma = models.IntegerField(null=True, blank=True, default=0)
-    students_count = models.CharField(null=True, blank=True, default=0)
+    students_count = models.IntegerField(null=True, blank=True, default=0)
     create = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
