@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from rest_framework.utils import timezone
 
 
 class CustemUser(AbstractUser):

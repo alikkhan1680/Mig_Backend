@@ -1,3 +1,4 @@
+import uuid
 from requests import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly, IsAdminUser
 from .permissions import IsOwnerOrReadOnly, IsAdminOrOwner
@@ -5,6 +6,8 @@ from app.models import *
 from app.serializers import *
 from rest_framework.views import *
 from rest_framework.generics import *
+from django.utils import timezone
+
 
 class LoginUser(APIView):
     serializer_class = UserSerializers
@@ -154,10 +157,12 @@ class CategoryDelete(DestroyAPIView):
 
 
 class CourseList(ListAPIView):
-    queryset = Course.objects.all()
     serializer_class = CourseSerializers
     permission_classes = [AllowAny]
 
+    def get_queryset(self):
+        current_time = timezone.now()
+        return Course.objects.filter(live_time__gt=current_time)
 
 
 class CourseCreate(CreateAPIView):
